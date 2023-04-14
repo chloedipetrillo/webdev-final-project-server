@@ -12,8 +12,8 @@ async function getApi(name) {
     let counter = 0;
     for (let i = 0; i < data.elements.length; i++) {
         // console.log("inside here")
-        if(data.elements[i].first_name.toLowerCase().includes(name) ||
-            data.elements[i].second_name.toLowerCase().includes(name)) {
+        if(data.elements[i].first_name.toLowerCase().includes(name.toLowerCase()) ||
+            data.elements[i].second_name.toLowerCase().includes(name.toLowerCase())) {
             if(counter === 10)
                 break;
             // console.log(data.elements[i]);

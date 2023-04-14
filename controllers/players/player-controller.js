@@ -6,15 +6,18 @@ let players = [];
 async function getApi(name) {
 
     players = [];
-    // console.log("inside function to get player : " + name)
+     console.log("inside function to get player : " + name)
     const response = await fetch(api_url);
     let data = await response.json();
     let counter = 0;
     for (let i = 0; i < data.elements.length; i++) {
         // console.log("inside here")
-        if(data.elements[i].first_name.toLowerCase().includes(name) ||
-            data.elements[i].second_name.toLowerCase().includes(name)) {
-            if(counter === 10)
+        // console.log(data.elements[i]);
+
+        if(data.elements[i].first_name.toLowerCase().includes(name.toLowerCase()) ||
+
+            data.elements[i].second_name.toLowerCase().includes(name.toLowerCase())) {
+            if(counter === 20)
                 break;
             // console.log(data.elements[i]);
             // console.log("Counter is : " + counter);
@@ -30,14 +33,16 @@ async function getApi(name) {
             position--;
             // console.log("Position : " + data.element_types[position].singular_name);
             counter++;
+            let photoLink = data.elements[i].code + ".png"
             let playerData = {
                 "first_name": data.elements[i].first_name,
                 "second_name": data.elements[i].second_name,
                 "team_name": data.teams[team].name,
                 "value": data.elements[i].now_cost / 10,
-                "position": data.element_types[position].singular_name
+                "position": data.element_types[position].singular_name,
+                "photo": "https://resources.premierleague.com/premierleague/photos/players/110x140/p" + photoLink
             }
-            // console.log(JSON.stringify(playerData));
+            console.log(JSON.stringify(playerData));
             players.push(playerData);
         }
     }
@@ -59,9 +64,9 @@ const findPlayersById = async (req, res) => {
     // let players = [];
     const p = await getApi(playerId);
 
-    // players.forEach(function (player) {
-    //     console.log(player);
-    // });
+    players.forEach(function (player) {
+       console.log(player);
+     });
 
     res.json(players);
 }

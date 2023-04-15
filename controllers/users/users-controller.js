@@ -1,64 +1,87 @@
-import people from './users.js'
-let users = people
+import * as dao from "../../users/users-dao.js";
 
 
 
+const UsersController = (app) => {
+    const findAllUsers = async (req, res) => {
+        const users = await dao.findAllUsers();
+        res.json(users);
+    };
+    const findUserById = async (req, res) => {
+        // const user = users.find((user) => user.id === req.params.id);
+        const user = await dao.findUserById(req.params.id);
+        res.json(user);
+    };
+    const createUser = async (req, res) => {
+        const user = req.body;
+        // users.push(user);
+        const newUser = await dao.createUser(user);
+        res.json(newUser);
+    };
 
-const UserController = (app) => {
-    app.get('/api/users', findUsers)
-    app.get('/api/users/:uid', findUserById);
-    app.post('/api/users', createUser);
-    app.delete('/api/users/:uid', deleteUser);
-    app.put('/api/users/:uid', updateUser);
-}
+    const updateUser = async (req, res) => {
+        const user = req.body;
+        // const index = users.findIndex((user) => user.id === req.params.id);
+        // users[index] = user;
+        const status = await dao.updateUser(req.params.id, user);
+        res.send(status);
+    };
+    const deleteUser = async (req, res) => {
+        // const index = users.findIndex((user) => user.id === req.params.id);
+        // users.splice(index, 1);
+        const status = await dao.deleteUser(req.params.id);
+        res.send(status);
+    };
+    const login = async (req, res) => {
+        const user = await dao.findUserByCredentials(req.body);
 
-
-const updateUser = (req, res) => {
-    const userId = req.params['uid'];
-    const updates = req.body;
-    users = users.map((usr) =>
-        usr._id === userId ?
-            {...usr, ...updates} :
-            usr
-    );
-    res.sendStatus(200);
-}
-
-
-const createUser = (req, res) => {
-    const newUser = req.body;
-    newUser._id = (new Date()).getTime() + '';
-    users.push(newUser);
-    res.json(newUser);
-}
-
-const deleteUser = (req, res) => {
-    const userId = req.params['uid'];
-    users = users.filter(usr =>
-        usr._id !== userId);
-    res.sendStatus(200);
-}
-
-
-const findUserById = (req, res) => {
-    const userId = req.params.uid;
-    const user = users
-        .find(u => u._id === userId);
-    res.json(user);
-}
-
-const findUsers = (req, res) => {
-    const type = req.query.type
-    if(type) {
-        const usersOfType = users
-            .filter(u => u.type === type)
-        res.json(usersOfType)
-        return
-    }
-
-    res.json(users)
-}
+        if (user) {
+            req.session["currentUser"] = user;
+            res.json(user);
+        } else {
+            res.sendStatus(401);
+        }
+    };
 
 
-export default UserController
+    const logout = async (req, res) => {
+        req.session.destroy();
+        // currentUser = null;
+        res.sendStatus(200);
+    };
+    const profile = async (req, res) => {
+        const currentUser = req.session["currentUser"];
+        if (!currentUser) {
+            res.sendStatus(404);
+            return;
+        }
+        res.send(currentUser);
+    };
 
+    const register = async (req, res) => {
+        const user = req.body;
+        // users.push(user);
+        const existingUser = await dao.findUserByUsername(user.username);
+        if (existingUser) {
+            res.sendStatus(409);
+            return;
+        }
+        const newUser = await dao.createUser(user);
+        req.session.currentUser = newUser;
+        res.json(newUser);
+    };
+
+    app.post("/api/users/login", login);
+    app.post("/api/users/logout", logout);
+    app.get("/api/users/profile", profile);
+    //app.get("/api/users/:username/:password", findChloe);
+    app.post("/api/users/register", register);
+
+    app.get("/api/users", findAllUsers);
+    // app.get("/api/users/:id", findUserById);
+    app.post("/api/users", createUser);
+    app.put("/api/users/:id", updateUser);
+    app.delete("/api/users/:id", deleteUser);
+};
+
+export default UsersController;

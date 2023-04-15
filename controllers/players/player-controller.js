@@ -57,6 +57,13 @@ async function getApi(name) {
                 "position": playerPosition,
                 "photo": "https://resources.premierleague.com/premierleague/photos/players/110x140/p" + photoLink,
                 "_id": data.elements[i].code,
+                "chance_playing_next_round" : data.elements[i].chance_of_playing_next_round,
+                "minutes": data.elements[i].minutes,
+                "goals_scored": data.elements[i].goals_scored,
+                "assists": data.elements[i].assists,
+                "clean_sheets": data.elements[i].clean_sheets,
+                "saves": data.elements[i].saves,
+                "goals_conceded": data.elements[i].goals_conceded
             }
 
             players.push(playerData);

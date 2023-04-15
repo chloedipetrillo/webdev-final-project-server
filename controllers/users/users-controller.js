@@ -1,6 +1,7 @@
 import * as dao from "../../users/users-dao.js";
 
 
+
 const UsersController = (app) => {
     const findAllUsers = async (req, res) => {
         const users = await dao.findAllUsers();
@@ -33,7 +34,7 @@ const UsersController = (app) => {
     };
     const login = async (req, res) => {
         const user = await dao.findUserByCredentials(req.body);
-        console.log(user)
+
         if (user) {
             req.session["currentUser"] = user;
             res.json(user);

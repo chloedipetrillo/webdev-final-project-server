@@ -4,7 +4,7 @@ const api_url = "https://fantasy.premierleague.com/api/bootstrap-static/";
 let players = [];
 
 async function getApi(pid) {
-
+    players = []
     const response = await fetch(api_url);
     let data = await response.json();
     let counter = 0;
@@ -49,7 +49,29 @@ async function getApi(pid) {
                 "value": data.elements[i].now_cost / 10,
                 "position": playerPosition,
                 "photo": "https://resources.premierleague.com/premierleague/photos/players/110x140/p" + photoLink,
-                "code": data.elements[i].code
+                "_id": data.elements[i].code,
+                "chance_playing_next_round" : data.elements[i].chance_of_playing_next_round,
+                "news": data.elements[i].news,
+                "news_added": data.elements[i].news_added,
+                "status": data.elements[i].status,
+                "value_season": data.elements[i].value,
+                "minutes": data.elements[i].minutes,
+                "goals_scored": data.elements[i].goals_scored,
+                "assists": data.elements[i].assists,
+                "clean_sheets": data.elements[i].clean_sheets,
+                "goals_conceded": data.elements[i].goals_conceded,
+                "own_goals": data.elements[i].own_goals,
+                "penalties_saved": data.elements[i].penalties_saved,
+                "penalties_missed": data.elements[i].penalties_missed,
+                "yellow_cards": data.elements[i].yellow_cards,
+                "red_cards": data.elements[i].red_cards,
+                "saves": data.elements[i].saves,
+                "influence": data.elements[i].influence,
+                "creativity": data.elements[i].creativity,
+                "threat": data.elements[i].threat,
+                "starts": data.elements[i].starts,
+
+
             }
 
             players.push(playerData);
@@ -80,7 +102,7 @@ const findPlayersById = async (req, res) => {
     });
 
 
-    res.json(players);
+    res.json(players[0]);
 }
 
 

@@ -23,6 +23,7 @@ const UsersController = (app) => {
         const user = req.body;
         // const index = users.findIndex((user) => user.id === req.params.id);
         // users[index] = user;
+        console.log(user)
         const status = await dao.updateUser(req.params.id, user);
         res.send(status);
     };
@@ -61,6 +62,9 @@ const UsersController = (app) => {
 
     const register = async (req, res) => {
         const user = req.body;
+        console.log(req.body)
+        console.log(user.username)
+
         // users.push(user);
         const existingUser = await dao.findUserByUsername(user.username);
         if (existingUser) {
@@ -80,10 +84,10 @@ const UsersController = (app) => {
     app.post("/api/users/profile", profile);
 
     app.get("/api/users", findAllUsers);
-    app.get("/api/users/profile/:id", findUserById);
+    app.get("/api/users/:id", findUserById);
     app.post("/api/users", createUser);
     app.put("/api/users/:id", updateUser);
-    app.delete("/api/users/:id", deleteUser);
+    app.delete("/api/users/delete/:id", deleteUser);
 };
 
 export default UsersController;

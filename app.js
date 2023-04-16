@@ -8,7 +8,7 @@ import UserController from "./controllers/users/users-controller.js";
 
 import parser from "cookie-parser";
 
-// mongoose.connect('mongodb+srv://finalproject:5610@cluster0.txfreg4.mongodb.net/?retryWrites=true&w=majority');
+ mongoose.connect('mongodb+srv://finalproject:5610@cluster0.txfreg4.mongodb.net/?retryWrites=true&w=majority');
 // mongoose.connect('mongodb://127.0.0.1:27017/fantasy');
 // const app = express();
 //
@@ -45,7 +45,7 @@ app.use(
 );
 app.use(express.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/fantasy');
+//mongoose.connect('mongodb://127.0.0.1:27017/fantasy');
 app.listen(4000);
 UserController(app)
 PlayerController(app);

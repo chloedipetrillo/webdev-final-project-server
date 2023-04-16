@@ -37,6 +37,7 @@ const UsersController = (app) => {
 
         if (user) {
             req.session["currentUser"] = user;
+            console.log(user)
             res.json(user);
         } else {
             res.sendStatus(401);
@@ -73,12 +74,13 @@ const UsersController = (app) => {
 
     app.post("/api/users/login", login);
     app.post("/api/users/logout", logout);
-    app.get("/api/users/profile", profile);
+    // app.get("/api/users/profile", profile);
     //app.get("/api/users/:username/:password", findChloe);
     app.post("/api/users/register", register);
+    app.post("/api/users/profile", profile);
 
     app.get("/api/users", findAllUsers);
-    // app.get("/api/users/:id", findUserById);
+    app.get("/api/users/profile/:id", findUserById);
     app.post("/api/users", createUser);
     app.put("/api/users/:id", updateUser);
     app.delete("/api/users/:id", deleteUser);

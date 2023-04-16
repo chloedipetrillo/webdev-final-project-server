@@ -49,7 +49,7 @@ async function getApi(pid) {
                 "value": data.elements[i].now_cost / 10,
                 "position": playerPosition,
                 "photo": "https://resources.premierleague.com/premierleague/photos/players/110x140/p" + photoLink,
-                "_id": data.elements[i].code,
+                "_id": data.elements[i].code + "",
                 "chance_playing_next_round" : data.elements[i].chance_of_playing_next_round,
                 "news": data.elements[i].news,
                 "news_added": data.elements[i].news_added,

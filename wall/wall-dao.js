@@ -24,3 +24,5 @@ export const createWallPost = async (post) => {
     const newPost = await wallModel.create(post);
     return newPost;
 };
+
+export const deleteWallPost = async (id) => wallModel.deleteOne({_id: id});

@@ -22,10 +22,19 @@ const WallController = (app) => {
         res.json(newChat);
     };
 
+    const deletePost = async (req, res) => {
+        console.log(req.params);
+        const postIdToDelete = req.params.id;
+        const status = await dao.deleteWallPost(postIdToDelete);
+        res.json(status);
+    }
+
+
+
     app.get("/api/wall", findAll)
     // app.get("/api/wall/:pid", findComments);
     app.post("/api/wall", createPost);
-
+    app.delete("/api/wall/:id", deletePost);
 
 };
 

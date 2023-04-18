@@ -23,8 +23,10 @@ const UsersController = (app) => {
         const user = req.body;
         // const index = users.findIndex((user) => user.id === req.params.id);
         // users[index] = user;
-        console.log(user)
         const status = await dao.updateUser(req.params.id, user);
+        req.session["currentUser"] = user
+        console.log("should update")
+        console.log(status)
         res.send(status);
     };
     const deleteUser = async (req, res) => {

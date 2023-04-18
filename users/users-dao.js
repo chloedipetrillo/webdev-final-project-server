@@ -27,7 +27,7 @@ export const createUser = async (user) => {
 };
 
 export const updateUser = async (id, user) => {
-    const status = await usersModel.updateOne({ _id: id }, user);
+    const status = await usersModel.updateOne({ _id: id },{$set:user});
     return status;
 };
 

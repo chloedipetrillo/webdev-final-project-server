@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import UserController from "./controllers/users/users-controller.js";
 import PlayerProfileController from "./controllers/player-profile-controller/player-profile-controller.js";
 import WallController from "./controllers/wall/wall-controller.js";
+import FollowsController from "./controllers/follows/follows-controller.js";
 
 mongoose.connect('mongodb+srv://finalproject:5610@cluster0.txfreg4.mongodb.net/?retryWrites=true&w=majority');
 // mongoose.connect('mongodb://127.0.0.1:27017/fantasy');
@@ -55,6 +56,7 @@ UserController(app)
 PlayerController(app);
 SearchController(app);
 WallController(app);
+FollowsController(app)
 
 
 

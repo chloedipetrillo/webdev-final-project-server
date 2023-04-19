@@ -27,11 +27,11 @@ async function getApi(name) {
 
         let fullName = data.elements[i].first_name + " " + data.elements[i].second_name
 
-        if(data.elements[i].first_name.toLowerCase().includes(name.toLowerCase()) ||
-            teamName.toLowerCase().includes(name.toLowerCase()) ||
-            playerPosition.toLowerCase().includes(name.toLowerCase()) ||
-            fullName.toLowerCase().includes(name.toLowerCase()) ||
-            data.elements[i].second_name.toLowerCase().includes(name.toLowerCase())) {
+        if(data.elements[i].first_name.toLowerCase().startsWith(name.toLowerCase()) ||
+            teamName.toLowerCase().startsWith(name.toLowerCase()) ||
+            playerPosition.toLowerCase().startsWith(name.toLowerCase()) ||
+            fullName.toLowerCase().startsWith(name.toLowerCase()) ||
+            data.elements[i].second_name.toLowerCase().startsWith(name.toLowerCase())) {
             if(counter === 20)
                 break;
             // console.log(data.elements[i]);
@@ -56,7 +56,7 @@ async function getApi(name) {
                 "value": data.elements[i].now_cost / 10,
                 "position": playerPosition,
                 "photo": "https://resources.premierleague.com/premierleague/photos/players/110x140/p" + photoLink,
-                "_id": data.elements[i].code,
+                "_id": data.elements[i].code +"",
                 "chance_playing_next_round" : data.elements[i].chance_of_playing_next_round,
                 "minutes": data.elements[i].minutes,
                 "goals_scored": data.elements[i].goals_scored,

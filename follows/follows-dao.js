@@ -21,3 +21,10 @@ export const following = async (follower) => {
     return await followsModel.find({follower: follower})
         .populate("followed","username firstName image").exec();
 };
+
+export const findIfFollowing = async ({ follower, followed }) => {
+    const user = await followsModel.findOne({ follower, followed });
+    return user;
+};
+
+export const unfollowUser = async({follower, followed}) => followsModel.deleteOne({follower, followed})

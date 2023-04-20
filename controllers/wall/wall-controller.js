@@ -14,16 +14,12 @@ const WallController = (app) => {
 
     const createPost = async (req, res) => {
         const chat = req.body;
-        console.log(chat)
         chat.date = (new Date()).getTime();
-        // users.push(user);
-        console.log(chat);
         const newChat = await dao.createWallPost(chat);
         res.json(newChat);
     };
 
     const deletePost = async (req, res) => {
-        console.log(req.params);
         const postIdToDelete = req.params.id;
         const status = await dao.deleteWallPost(postIdToDelete);
         res.json(status);

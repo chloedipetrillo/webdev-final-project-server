@@ -13,10 +13,10 @@ const MyTeamController = (app) => {
 
     const findMyTeam = async (req, res) => {
         // const currentUser = req.session["currentUser"]
-        const players = req.body;
-
-        console.log("user id in server find is :  " + players.userId)
-        const newTeam = await dao.findTeam(players.userId);
+        const players = req.params;
+        console.log(players)
+        console.log("user id in server find is :  " + players.pid)
+        const newTeam = await dao.findTeam(players.pid);
         console.log("find team in server is : " + newTeam)
         res.json(newTeam);
     };

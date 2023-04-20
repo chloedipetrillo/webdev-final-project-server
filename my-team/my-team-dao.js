@@ -3,7 +3,7 @@ import myTeamModel from "./my-team-model.js";
 export const createTeam = async (team) => await myTeamModel.create(team);
 
 export const findTeam = async (pid) => {
-    const users = await myTeamModel.find({userId: pid});
+    const users = await myTeamModel.findOne({userId: pid});
     return users;
 };
 

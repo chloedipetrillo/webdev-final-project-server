@@ -19,8 +19,6 @@ export const findUserById = async (id) => {
 };
 
 export const createChats = async (chat) => {
-    console.log("dao")
-    console.log(chat)
     const newChat = await profileModel.create(chat);
     return newChat;
 };

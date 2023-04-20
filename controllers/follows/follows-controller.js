@@ -9,8 +9,6 @@ const FollowsController = (app) => {
         const currentUser = req.session["currentUser"]
         const followed = req.params.followed;
         const user = await dao.findIfFollowing({follower:currentUser._id, followed})
-        console.log("user")
-        console.log(user)
         if (user){
             res.sendStatus(409);
             return;
@@ -39,8 +37,6 @@ const FollowsController = (app) => {
         const currentUser = req.session["currentUser"]
         const followed = req.params.followed;
         const user = await dao.findIfFollowing({follower:currentUser._id, followed})
-        console.log("user")
-        console.log(user)
         if (!user){
             res.sendStatus(409);
             return;

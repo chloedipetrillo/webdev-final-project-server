@@ -8,30 +8,22 @@ const UsersController = (app) => {
         res.json(users);
     };
     const findUserById = async (req, res) => {
-        // const user = users.find((user) => user.id === req.params.id);
         const user = await dao.findUserById(req.params.id);
         res.json(user);
     };
     const createUser = async (req, res) => {
         const user = req.body;
-        // users.push(user);
         const newUser = await dao.createUser(user);
         res.json(newUser);
     };
 
     const updateUser = async (req, res) => {
         const user = req.body;
-        // const index = users.findIndex((user) => user.id === req.params.id);
-        // users[index] = user;
         const status = await dao.updateUser(req.params.id, user);
         req.session["currentUser"] = user;
-        console.log("should update")
-        console.log(status)
         res.send(status);
     };
     const deleteUser = async (req, res) => {
-        // const index = users.findIndex((user) => user.id === req.params.id);
-        // users.splice(index, 1);
         const status = await dao.deleteUser(req.params.id);
         res.send(status);
     };
@@ -40,7 +32,6 @@ const UsersController = (app) => {
 
         if (user) {
             req.session["currentUser"] = user;
-            console.log(user)
             res.json(user);
         } else {
             res.sendStatus(401);
@@ -64,10 +55,6 @@ const UsersController = (app) => {
 
     const register = async (req, res) => {
         const user = req.body;
-        console.log(req.body)
-        console.log(user.username)
-
-        // users.push(user);
         const existingUser = await dao.findUserByUsername(user.username);
         if (existingUser) {
             res.sendStatus(409);

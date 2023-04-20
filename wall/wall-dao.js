@@ -19,8 +19,6 @@ export const findUserById = async (id) => {
 };
 
 export const createWallPost = async (post) => {
-    console.log("dao")
-    console.log(post)
     const newPost = await wallModel.create(post);
     return newPost;
 };

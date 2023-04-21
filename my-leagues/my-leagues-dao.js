@@ -3,8 +3,18 @@ import myLeaguesModel from "./my-leagues-model.js";
 
 export const createLeague = async (league) => await myLeaguesModel.create(league);
 
+
+export const findAllLeagues = async () => {
+    const leagues = await myLeaguesModel.find();
+    return leagues;
+};
 export const findLeaguesByCommissioner = async (id) => {
     const leagues = await myLeaguesModel.find({commissionerId: id});
+    return leagues;
+};
+
+export const findLeaguesByID = async (id) => {
+    const leagues = await myLeaguesModel.findOne({_id: id});
     return leagues;
 };
 

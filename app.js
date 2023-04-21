@@ -10,6 +10,7 @@ import WallController from "./controllers/wall/wall-controller.js";
 import FollowsController from "./controllers/follows/follows-controller.js";
 import MyTeamController from "./controllers/my-team/my-team-controller.js";
 import MyLeaguesController from "./controllers/my-leagues/my-league-controller.js";
+import LeagueJoinController from "./controllers/team-league/team-league-controller.js";
 
 mongoose.connect('mongodb+srv://finalproject:5610@cluster0.txfreg4.mongodb.net/?retryWrites=true&w=majority');
 // mongoose.connect('mongodb://127.0.0.1:27017/fantasy');
@@ -61,5 +62,6 @@ WallController(app);
 FollowsController(app)
 MyTeamController(app);
 MyLeaguesController(app);
+LeagueJoinController(app);
 
 

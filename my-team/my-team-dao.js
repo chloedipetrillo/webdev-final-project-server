@@ -9,7 +9,7 @@ export const findTeam = async (pid) => {
 
 export const deleteTeam = async (pid) => myTeamModel.deleteOne({_id: pid});
 
-export const updateTeam = async (pid, team) => {
-    const status = await myTeamModel.updateOne({ _id: pid },{team: team});
+export const updateTeam = async (id, entry) => {
+    const status = await myTeamModel.updateOne({ _id: id },{$set: entry});
     return status;
 };

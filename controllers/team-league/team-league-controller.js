@@ -1,8 +1,5 @@
 import * as dao from "../../team-leagues/team-leagues-dao.js";
-import {findAllLeaguesJoined} from "../../team-leagues/team-leagues-dao.js";
-
-
-
+import {findAllUsersInThisLeague} from "../../team-leagues/team-leagues-dao.js";
 
 const LeagueJoinController = (app) => {
 
@@ -31,10 +28,18 @@ const LeagueJoinController = (app) => {
         res.json(leagues);
     };
 
+    const findAllUsersInThisLeague = async (req, res) => {
+        const leagueId = req.params.leagueId;
+        console.log("leagueID is : " + leagueId)
+        const users = await dao.findAllUsersInThisLeague(leagueId);
+        res.json(users);
+    };
+
 
 
     app.post("/api/teamLeagues/", joinALeague);
     app.get("/api/teamLeagues/:userId", findLeaguesUserJoined);
+    app.get("/api/teamLeagues/users/:leagueId", findAllUsersInThisLeague);
     // app.get("/api/follows/following/:follower", following);
     // app.delete("/api/follows/:followed", unfollowPerson);
 

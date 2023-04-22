@@ -6,6 +6,9 @@ export const findAllLeaguesJoined = async (userId) => {
     return await teamLeaguesModel.find({userId});
 };
 
+export const findAllUsersInThisLeague = async (leagueId) => {
+    return await teamLeaguesModel.find({leagueId});
+};
 
 
 export const joinLeague = async (join) => await teamLeaguesModel.create(join);
